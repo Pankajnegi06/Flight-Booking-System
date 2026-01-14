@@ -181,7 +181,7 @@ const FlightSearch = () => {
 
       {/* Booking Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4 transition-all duration-300">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center z-50 p-4 transition-all duration-300" style={{ alignItems: 'flex-start', paddingTop: '5rem' }}>
           <div className="glass-card max-w-md w-full p-0 overflow-hidden fade-in shadow-2xl shadow-blue-900/20 border-white/10">
             {!bookingSuccess ? (
               <>
@@ -208,7 +208,7 @@ const FlightSearch = () => {
                       {/* Flight Details */}
                       <div className="space-y-6 mb-8">
                         {/* Route Summary */}
-                        <div className="flex items-center justify-between bg-white/5 p-5 rounded-2xl border border-white/5">
+                        <div className="flex items-center justify-between bg-white/5 p-5 rounded-2xl border border-white/5" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
                           <div className="text-center">
                             <p className="text-2xl font-bold text-white">{selectedFlight.departure_city.substring(0, 3).toUpperCase()}</p>
                             <p className="text-xs text-gray-400 uppercase">{selectedFlight.departure_city}</p>
@@ -221,7 +221,7 @@ const FlightSearch = () => {
                         </div>
 
                         {/* Airline Info */}
-                        <div className="flex items-center gap-4 px-2">
+                        <div className="flex items-center gap-4 px-2" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
                           <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
                             <MdFlight className="text-white text-xl rotate-45" />
                           </div>
@@ -232,8 +232,8 @@ const FlightSearch = () => {
                         </div>
 
                         {/* Price Breakdown */}
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                        <div style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5" style={{ marginBottom: '0.5rem' }}>
                             <span className="text-gray-300">Ticket Price</span>
                             <div className="text-right">
                               {selectedFlight.current_price > selectedFlight.base_price && (
@@ -251,7 +251,7 @@ const FlightSearch = () => {
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5" style={{ marginTop: '0.5rem' }}>
                             <span className="text-gray-300">Wallet Balance</span>
                             <span className={`font-bold ${
                               (user?.wallet || 0) >= (selectedFlight.current_price || 0)
@@ -273,7 +273,7 @@ const FlightSearch = () => {
                       </div>
 
                       {/* Actions */}
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-4" style={{ marginTop: '0.5rem' }}>
                         <button
                           onClick={closeModal}
                           className="btn-secondary w-full"
@@ -299,33 +299,33 @@ const FlightSearch = () => {
             ) : (
               /* Success State */
               <div className="text-center p-8">
-                <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto animate-bounce" style={{ marginBottom: '1rem' }}>
                   <MdCheckCircle className="text-6xl text-emerald-400" />
                 </div>
                 
-                <h2 className="text-3xl font-bold text-white mb-2">Booking Confirmed!</h2>
-                <p className="text-gray-400 mb-8">Your ticket has been generated successfully.</p>
+                <h2 className="text-3xl font-bold text-white" style={{ marginBottom: '0.5rem' }}>Booking Confirmed!</h2>
+                <p className="text-gray-400" style={{ marginBottom: '1rem' }}>Your ticket has been generated successfully.</p>
 
-                <div className="glass-card p-6 mb-8 text-left bg-white/5 border-white/10">
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center pb-4 border-b border-white/10">
+                <div className="glass-card p-6 text-left bg-white/5 border-white/10" style={{ marginBottom: '1rem' }}>
+                  <div>
+                    <div className="flex justify-between items-center pb-4 border-b border-white/10" style={{ marginBottom: '0.5rem' }}>
                       <span className="text-gray-400 text-sm uppercase tracking-wider">PNR Number</span>
                       <span className="text-white font-mono font-bold text-lg">{bookingSuccess.pnr}</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
                       <span className="text-gray-400 text-sm">Amount Paid</span>
                       <span className="text-emerald-400 font-bold text-lg">
                         ₹{bookingSuccess.price_paid?.toLocaleString('en-IN')}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center" style={{ marginTop: '0.5rem' }}>
                       <span className="text-gray-400 text-sm">Route</span>
                       <span className="text-white font-medium">{bookingSuccess.route}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4" style={{ marginTop: '0.5rem' }}>
                   <button onClick={closeModal} className="btn-secondary w-full">
                     Close
                   </button>
