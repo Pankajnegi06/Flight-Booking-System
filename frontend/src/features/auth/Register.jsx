@@ -60,8 +60,8 @@ const Register = () => {
 
       <div className="w-full max-w-md fade-in relative z-10">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-4">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-3 my-3">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30">
               <MdFlight className="text-4xl text-white rotate-45" />
             </div>
@@ -71,14 +71,14 @@ const Register = () => {
         </div>
 
         {/* Form Card */}
-        <div className="glass-card p-10 sm:p-12 shadow-2xl border-white/10">
-          <form onSubmit={onSubmit} className="space-y-7">
+        <div className="glass-card p-6 sm:p-8 shadow-2xl border-white/10">
+          <form onSubmit={onSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.5rem',marginTop:'0.5rem' }}>
                 Full Name
               </label>
               <div className="relative group">
-                <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiUser className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="text"
                   name="name"
@@ -86,17 +86,18 @@ const Register = () => {
                   onChange={onChange}
                   placeholder="John Doe"
                   required
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.25rem' }}>
                 Email Address
               </label>
               <div className="relative group">
-                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiMail className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="email"
                   name="email"
@@ -104,17 +105,18 @@ const Register = () => {
                   onChange={onChange}
                   placeholder="you@example.com"
                   required
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.25rem' }}>
                 Password
               </label>
               <div className="relative group">
-                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiLock className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="password"
                   name="password"
@@ -123,17 +125,18 @@ const Register = () => {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.25rem' }}>
                 Confirm Password
               </label>
               <div className="relative group">
-                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiLock className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="password"
                   name="confirmPassword"
@@ -142,7 +145,8 @@ const Register = () => {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
@@ -150,10 +154,10 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn-primary w-full flex items-center justify-center gap-2 text-lg py-3.5 mt-2"
+              className="btn-primary w-full flex items-center justify-center gap-2 text-lg py-3.5 mt-2" style={{marginTop:'1rem',marginBottom:'1rem'}}
             >
               {isLoading ? (
-                <div className="spinner w-6 h-6 border-2" />
+                <div className="spinner w-6 h-6 border-2 " style={{marginTop:'0.5rem'}}/>
               ) : (
                 <>
                   <FiUserPlus /> Create Account
@@ -162,13 +166,13 @@ const Register = () => {
             </button>
           </form>
 
-          <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+          <div className="mt-5 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl" style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}>
             <p className="text-sm text-emerald-400 text-center font-medium">
               🎉 New users get ₹50,000 in wallet balance!
             </p>
           </div>
 
-          <div className="mt-8 text-center pt-6 border-t border-white/10">
+          <div className="mt-5 text-center pt-4 border-t border-white/10">
             <p className="text-gray-400">
               Already have an account?{' '}
               <Link

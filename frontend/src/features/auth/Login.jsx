@@ -54,25 +54,25 @@ const Login = () => {
 
       <div className="w-full max-w-md fade-in relative z-10">
         {/* Logo */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-3 mb-4">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-3 mb-3">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30">
               <MdFlight className="text-4xl text-white rotate-45" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">Welcome Back</h1>
-          <p className="text-gray-400 text-lg">Sign in to continue your journey</p>
+          <h1 className="text-4xl font-bold text-white mb-2 tracking-tight" style={{marginTop:'0.5rem'}}>Welcome Back</h1>
+          <p className="text-gray-400 text-lg" style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}>Sign in to continue your journey</p>
         </div>
 
         {/* Form Card */}
-        <div className="glass-card p-10 sm:p-12 shadow-2xl border-white/10">
-          <form onSubmit={onSubmit} className="space-y-8">
+        <div className="glass-card p-6 sm:p-8 shadow-2xl border-white/10">
+          <form onSubmit={onSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.25rem' ,marginTop:'0.5rem'}}>
                 Email Address
               </label>
               <div className="relative group">
-                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiMail className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="email"
                   name="email"
@@ -80,17 +80,18 @@ const Login = () => {
                   onChange={onChange}
                   placeholder="you@example.com"
                   required
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2 ml-1">
+              <label className="block text-sm font-medium text-gray-300" style={{ marginBottom: '0.5rem', marginLeft: '0.25rem' ,marginTop:'0.5rem'}}>
                 Password
               </label>
               <div className="relative group">
-                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" />
+                <FiLock className="absolute top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-cyan-400 transition-colors" style={{ left: '1rem', fontSize: '1rem' }} />
                 <input
                   type="password"
                   name="password"
@@ -98,7 +99,8 @@ const Login = () => {
                   onChange={onChange}
                   placeholder="••••••••"
                   required
-                  className="input-field pl-12"
+                  className="input-field"
+                  style={{ paddingLeft: '2.75rem' }}
                 />
               </div>
             </div>
@@ -106,7 +108,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn-primary w-full flex items-center justify-center gap-2 text-lg py-3.5"
+              className="btn-primary w-full flex items-center justify-center gap-2 text-lg py-3.5" style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}
             >
               {isLoading ? (
                 <div className="spinner w-6 h-6 border-2" />
@@ -118,8 +120,8 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-8 text-center pt-6 border-t border-white/10">
-            <p className="text-gray-400">
+          <div className="mt-6 text-center pt-5 border-t border-white/10">
+            <p className="text-gray-400"style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}>
               Don't have an account?{' '}
               <Link
                 to="/register"

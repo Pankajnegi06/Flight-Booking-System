@@ -112,52 +112,53 @@ const FlightSearch = () => {
   return (
     <div className="fade-in max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+      <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+        <h1 className="text-4xl font-bold text-white mb-2">
           Where to <span className="gradient-text">Next?</span>
         </h1>
-        <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-          Discover premium flights at the best prices. Book your next adventure in seconds.
+        <p className="text-gray-500" style={{ fontSize: '0.95rem' }}>
+          View and download your bookings
         </p>
       </div>
 
       {/* Search and Filters */}
-      <div className="glass-card p-6 mb-12 flex flex-col md:flex-row gap-4 items-center justify-between bg-white/5 border-white/10">
-        <div className="w-full md:w-1/3 relative">
+      <div 
+        className="glass-card flex flex-col sm:flex-row items-center justify-between bg-white/5 border-white/10"
+        style={{ padding: '1rem', marginBottom: '1.5rem', gap: '1rem' }}
+      >
+        <div className="relative" style={{ flex: '1', maxWidth: '300px' }}>
           <input
             type="text"
-            placeholder="Search city (e.g. Delhi, Mumbai)"
+            placeholder="Search city (e.g. Delhi)"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+            className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+            style={{ padding: '0.6rem 1rem', borderRadius: '0.5rem', fontSize: '0.85rem' }}
           />
         </div>
         
-        <div className="flex gap-4 w-full md:w-auto">
-          <select
-            value={filterAirline}
-            onChange={(e) => setFilterAirline(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400/50 transition-colors cursor-pointer"
-          >
-            <option value="all" className="bg-gray-900">All Airlines</option>
-            {uniqueAirlines.map(airline => (
-              <option key={airline} value={airline} className="bg-gray-900">{airline}</option>
-            ))}
-          </select>
-
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400/50 transition-colors cursor-pointer"
+            className="bg-white/5 border border-white/10 text-white focus:outline-none cursor-pointer"
+            style={{ padding: '0.6rem 1rem', borderRadius: '0.5rem', fontSize: '0.85rem' }}
           >
             <option value="price_low" className="bg-gray-900">Price: Low to High</option>
             <option value="price_high" className="bg-gray-900">Price: High to Low</option>
           </select>
+          
+          <button
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+            style={{ padding: '0.6rem 1.25rem', borderRadius: '0.5rem', fontSize: '0.85rem', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}
+          >
+            Select Flight
+          </button>
         </div>
       </div>
 
       {/* Flight Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
         {filteredFlights.map((flight, index) => (
           <FlightCard
             key={flight._id || index}

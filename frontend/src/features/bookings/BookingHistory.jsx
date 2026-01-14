@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBookingHistory } from './bookingSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { MdFlight, MdDownload, MdAccessTime, MdConfirmationNumber } from 'react-icons/md';
+import { MdFlight, MdDownload } from 'react-icons/md';
 import toast from 'react-hot-toast';
 
 const BookingHistory = () => {
@@ -31,6 +31,11 @@ const BookingHistory = () => {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
+    });
+  };
+
+  const formatTime = (dateString) => {
+    return new Date(dateString).toLocaleTimeString('en-IN', {
       hour: '2-digit',
       minute: '2-digit',
     });
@@ -45,109 +50,129 @@ const BookingHistory = () => {
   }
 
   return (
-    <div className="fade-in">
+    <div className="fade-in" style={{ paddingTop: '1.5rem' }}>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">My Bookings</h1>
-        <p className="text-gray-400">
+      <div style={{ marginBottom: '1.5rem' }}>
+        <h1 className="text-3xl font-bold text-white" style={{ marginBottom: '0.5rem' }}>My Bookings</h1>
+        <p className="text-gray-500" style={{ fontSize: '0.9rem' }}>
           View and download tickets for all your booked flights
         </p>
       </div>
 
-      {/* Bookings List */}
+      {/* Bookings Grid */}
       {bookings && bookings.length > 0 ? (
-        <div className="space-y-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
           {bookings.map((booking, index) => (
             <div
               key={booking._id || index}
-              className="glass-card p-10 stagger-item hover:bg-white/5 transition-all"
+              className="glass-card stagger-item hover:bg-white/5 transition-all"
+              style={{ padding: '1rem' }}
             >
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                {/* Flight Info */}
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MdFlight className="text-white text-2xl rotate-45" />
+              {/* Top: Airline + Price */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div 
+                    className="bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center"
+                    style={{ width: '2.5rem', height: '2.5rem', borderRadius: '0.75rem' }}
+                  >
+                    <MdFlight className="text-white text-lg rotate-45" />
                   </div>
-                  
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-white text-lg">{booking.airline}</h3>
-                      <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs rounded-full">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span className="font-semibold text-white">{booking.airline}</span>
+                      <span 
+                        className="text-cyan-400 bg-cyan-500/10"
+                        style={{ padding: '0.1rem 0.4rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: '500' }}
+                      >
                         {booking.flightId}
                       </span>
                     </div>
-                    
-                    <p className="text-gray-300 font-medium">{booking.route}</p>
-                    
-                    <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <MdConfirmationNumber className="text-cyan-400" />
-                        <span className="font-mono">{booking.pnr}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MdAccessTime />
-                        <span>{formatDate(booking.bookingTime)}</span>
-                      </div>
-                    </div>
+                    <span className="text-gray-400" style={{ fontSize: '0.8rem' }}>{booking.route}</span>
                   </div>
                 </div>
+                <div style={{ textAlign: 'right' }}>
+                  <p className="text-emerald-400 font-bold" style={{ fontSize: '1.25rem' }}>
+                    ₹{booking.price_paid?.toLocaleString('en-IN')}
+                  </p>
+                </div>
+              </div>
 
-                {/* Price & Actions */}
-                <div className="flex items-center gap-4 lg:gap-6">
-                  <div className="text-right">
-                    <p className="text-sm text-gray-400">Amount Paid</p>
-                    <p className="text-xl font-bold text-emerald-400">
-                      ₹{booking.price_paid?.toLocaleString('en-IN')}
-                    </p>
-                  </div>
-                  
-                  <button
-                    onClick={() => handleDownload(booking.ticket_url)}
-                    className="btn-primary flex items-center gap-2 whitespace-nowrap"
-                  >
-                    <MdDownload /> Download Ticket
-                  </button>
+              {/* Middle: PNR + Date */}
+              <div 
+                className="bg-white/5 border border-white/5"
+                style={{ padding: '0.6rem 0.75rem', borderRadius: '0.5rem', marginBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span className="text-gray-500" style={{ fontSize: '0.7rem' }}>PNR:</span>
+                  <span className="text-white font-mono" style={{ fontSize: '0.75rem' }}>{booking.pnr}</span>
                 </div>
+                <div className="text-gray-400" style={{ fontSize: '0.75rem' }}>
+                  {formatDate(booking.bookingTime)} • {formatTime(booking.bookingTime)}
+                </div>
+              </div>
+
+              {/* Bottom: Amount + Download */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <span className="text-gray-500" style={{ fontSize: '0.7rem' }}>Amount Paid</span>
+                  <p className="text-white font-medium" style={{ fontSize: '0.9rem' }}>₹{booking.price_paid?.toLocaleString('en-IN')}</p>
+                </div>
+                <button
+                  onClick={() => handleDownload(booking.ticket_url)}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/30 transition-all flex items-center gap-1"
+                  style={{ padding: '0.5rem 1rem', borderRadius: '0.5rem', fontSize: '0.8rem', border: 'none', cursor: 'pointer' }}
+                >
+                  <MdDownload style={{ fontSize: '1rem' }} />
+                  Book Now
+                </button>
               </div>
             </div>
           ))}
         </div>
       ) : (
         /* Empty State */
-        <div className="glass-card p-12 text-center">
-          <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <MdFlight className="text-4xl text-blue-400" />
+        <div className="glass-card text-center" style={{ padding: '3rem' }}>
+          <div 
+            className="bg-blue-500/10 flex items-center justify-center mx-auto"
+            style={{ width: '4rem', height: '4rem', borderRadius: '9999px', marginBottom: '1rem' }}
+          >
+            <MdFlight className="text-2xl text-blue-400" />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-2">No Bookings Yet</h3>
-          <p className="text-gray-400 mb-6">
-            You haven't booked any flights yet. Start exploring available flights!
+          <h3 className="text-lg font-semibold text-white" style={{ marginBottom: '0.5rem' }}>No Bookings Yet</h3>
+          <p className="text-gray-400" style={{ marginBottom: '1rem', fontSize: '0.9rem' }}>
+            You haven't booked any flights yet. Start exploring!
           </p>
-          <a href="/" className="btn-primary inline-flex items-center gap-2">
+          <a 
+            href="/" 
+            className="btn-primary inline-flex items-center gap-2"
+            style={{ fontSize: '0.85rem', padding: '0.6rem 1.25rem' }}
+          >
             <MdFlight /> Browse Flights
           </a>
         </div>
       )}
 
-      {/* Summary Card */}
+      {/* Summary Stats */}
       {bookings && bookings.length > 0 && (
-        <div className="glass-card p-6 mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-            <div>
-              <p className="text-3xl font-bold gradient-text">{bookings.length}</p>
-              <p className="text-gray-400 text-sm">Total Bookings</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-emerald-400">
-                ₹{bookings.reduce((sum, b) => sum + (b.price_paid || 0), 0).toLocaleString('en-IN')}
-              </p>
-              <p className="text-gray-400 text-sm">Total Spent</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-cyan-400">
-                {new Set(bookings.map(b => b.airline)).size}
-              </p>
-              <p className="text-gray-400 text-sm">Airlines Flown</p>
-            </div>
+        <div 
+          className="glass-card"
+          style={{ padding: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', textAlign: 'center' }}
+        >
+          <div>
+            <p className="gradient-text font-bold" style={{ fontSize: '1.75rem' }}>{bookings.length}</p>
+            <p className="text-gray-400" style={{ fontSize: '0.75rem' }}>Total Bookings</p>
+          </div>
+          <div>
+            <p className="text-emerald-400 font-bold" style={{ fontSize: '1.75rem' }}>
+              ₹{bookings.reduce((sum, b) => sum + (b.price_paid || 0), 0).toLocaleString('en-IN')}
+            </p>
+            <p className="text-gray-400" style={{ fontSize: '0.75rem' }}>Total Spent</p>
+          </div>
+          <div>
+            <p className="text-cyan-400 font-bold" style={{ fontSize: '1.75rem' }}>
+              {new Set(bookings.map(b => b.airline)).size}
+            </p>
+            <p className="text-gray-400" style={{ fontSize: '0.75rem' }}>Airlines Flown</p>
           </div>
         </div>
       )}
