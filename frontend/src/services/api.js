@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://flight-booking-system-yf6j.onrender.com',
+  baseURL: 'https://flight-booking-system-r5er.onrender.com',
+  
   headers: {
     'Content-Type': 'application/json',
   },
